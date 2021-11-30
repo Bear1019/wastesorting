@@ -1,0 +1,55 @@
+.mui-bar{
+	background-color: #f2f3f1;
+}
+.mui-bar .mui-title{
+	text-align: left!important;
+}
+a,a:active{
+	color: #000;
+}
+.match-result h1{
+	padding-top: 2rem;
+	padding-left: 0.533333rem;
+}
+.search-input{
+	padding: 0.8rem;
+}
+.search-input input{
+	display: inline-block;
+	height: 0.96rem!important;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-radius: 1.333333rem;
+	background-color: #FFFFFF;
+}
+.hot-search h3{
+	padding: 0 0.533333rem;
+	font: 0.48rem;
+}
+.hot-search ul{
+	display: flex;
+	flex-wrap: wrap-reverse;
+	padding-right: 0.533333rem;
+	padding-left: 0;
+}
+.hot-search ul li{
+	font-size: 0.32rem;
+	background-color: #E1E2E1;
+	margin-left: 0.533333rem;
+	margin-top: 0.266666rem;
+	padding: 0.08rem 0.106666rem;
+}
+.history-search{
+	padding: 0.533333rem 0;
+}
+.history-search h3{
+	padding-left: 0.533333rem;
+	font: 0.48rem;
+}
+.mui-table-view{
+	background-color: #F2F3F1!important;
+}
+.mui-table-view-cell{
+	padding: 0.266666rem 0.533333rem;
+	margin:0 0;
+}

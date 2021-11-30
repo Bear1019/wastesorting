@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet"/>
+		<link href="css/detail.css" rel="stylesheet"/>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">垃圾分类</h1>
+		</header>
+		
+		<section>
+			<h1>匹配结果</h1>
+			<div class="detail-title" id="detail-title">
+			<!-- <p></p>
+			<h3></h3> -->
+			</div>
+			<div class="datail-list" id="detail-list">
+				<p class="detail-list-title">您可能要找到的是</p>
+				<ul class="mui-table-view datail-list">
+					</ul>
+			</div>
+		</section>
+		
+		<script src="js/mui.js"></script>
+		<script src="js/flexible.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				//接收主页面传过来的值
+				var self = plus.webview.currentWebview();
+				var title = decodeURI(self.title);
+				var detailTitle = document.getElementById("detail-title");
+				var detailList = document.getElementById("detail-list");
+				
+				
+				//请求接口
+				mui.ajax('http://apis.juhe.cn/rubbish/search', {
+					dataType: 'json',
+					data: {
+						key: 'dfe7a5dc90a9be32d35d15d5a06eb619',
+						q: title
+					},
+				    success: function(data) {
+						var result = data.result
+						if(!result) {
+							detailTitle.innerHTML = `
+							<p>垃圾君正在查阅资料,请稍后查看</p>
+							<h3>未知垃圾</h3>
+							`
+							return false
+						}
+						//有数据的情况下
+						mui.each(result, function(index, item) {
+							if(item.itemName == title) {
+								detailTitle.innerHTML = `
+								<p>${item.itemName}为</p>
+								<h3>${item.itemCategory}</h3>
+								`
+							}else{
+								detailList.innerHTML += `
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<p>${item.itemName}</p>
+										<p>${item.itemCategory}</p>
+									</a>
+								</li>
+								`
+							}
+						})
+						}
+					})
+			})
+		</script>
+	</body>
+
+</html>

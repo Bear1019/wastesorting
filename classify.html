@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="css/classify.css">
+	</head>
+
+	<body>
+		<div class="container">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">垃圾分类</h1>
+		</header>
+		
+		<section>
+			<div class="mui-slider">
+			  <div class="mui-slider-group" id="muiGroup">
+			    
+
+			  </div>
+			</div>
+			
+			<div class="scroll-list">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<!--这里放置真实显示的DOM内容-->
+					<ul class="list mui-table-view" id='slideItem'>
+						<!-- <li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li>
+						<li>111111</li> -->
+					</ul>
+				</div>
+			</div>
+			</div>
+		</section>
+		</div>
+		
+		<script src="js/mui.js"></script>
+		<script src="js/flexible.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				
+				//垃圾分类数据请求
+				mui.ajax('http://apis.juhe.cn/rubbish/category', {
+					dataType: 'json',
+					data: {
+						key: 'dfe7a5dc90a9be32d35d15d5a06eb619'
+						
+					},
+					success: function(data) {
+						var result = data.result
+						mui.each(result, function(index, item) {
+							var muiGroup = document.getElementById('muiGroup')
+							muiGroup.innerHTML += `
+							<div class="mui-slider-item">
+							  <div>
+							  <h3>${item.name}</h3>
+							  <p>${item.explain}</p>
+							  </div>
+							</div>
+							`
+						})
+						
+						//调用显示数据的函数
+						fAddList(result[0])
+						
+						//滑动
+						mui('.mui-slider').slider().gotoItem(0);
+						
+						//滑动事件操作
+						document.querySelector('.mui-slider').addEventListener('slide', function(e) {
+							//滑动到了第几个
+							fAddList(result[e.detail.slideNumber])
+						})
+					}
+				})
+				
+			    //滑动函数
+				mui('.mui-scroll-wrapper').scroll()
+				
+				//滑动展示相应的内容
+				function fAddList(options) {
+					var sHtml = ''
+					var newArr = options.common.split('、')
+					mui.each(newArr, function(index, item) {
+						sHtml += `
+						<li data-title='${item}' class='mui-table-view-cell'>${item}</li>
+						`
+					})
+					document.getElementById('slideItem').innerHTML = sHtml
+				}
+				
+				//点击列表跳转页面
+				mui('#slideItem').on('tap', 'li', function() {
+					var dataTitle = this.getAttribute('data-title')
+					mui.openWindow({
+						url: "detail.html",
+						id: "detail",
+						extras: {
+							title: encodeURI(dataTitle)
+						}
+					})
+				})
+				
+			})
+		</script>
+	</body>
+
+</html>

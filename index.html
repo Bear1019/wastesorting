@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/iconfont.css">
+	<link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/common.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="css/index.css">
+    <title></title>
+</head>
+<body>
+	
+	<header>
+		<div class="title"><h3>垃圾分类</h3></div>
+		<div class="content">
+			<ul>
+				<li class='recycleBin'>
+					<i class="iconfont icon-huishouzhan"></i>
+				<span>回收站</span>
+				</li>
+				<li class='refuseBin'>
+					<i class="iconfont icon-lajizhan-s"></i>
+				<span>垃圾站</span>
+				</li>
+				<li class="classifyList">
+					<i class="iconfont icon-caidan"></i>
+				<span>垃圾分类</span>
+				</li>
+			</ul>
+		</div>
+	</header>
+	
+	<footer>
+		<div class="about"><i class="iconfont icon-guanyu"></i></div>
+		<div class="voice"><i class="iconfont icon-yuyinhecheng" id="voice"><span>语音查找</span></i></div>
+		<div class="search"><i class="iconfont icon-icon-" id="search"></i></div>
+	</footer>
+	
+	
+	<script src="js/mui.min.js"></script>
+	<script src="js/flexible.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	  	mui.init();
+		mui.plusReady(function() {
+			plus.navigator.setStatusBarBackground('#F2F3F3');
+			
+			//触发语音识别
+		
+			mui('footer').on('tap', '#voice', function() {
+				let options = {
+					punctuation: false
+				}
+				plus.speech.startRecognize( options, function(data) {
+					//success 跳转页面
+					mui.openWindow({
+						url: "detail.html",
+						id: "detail",
+						extras: {
+							title: encodeURI(data)
+						}
+					})
+				}, function() {
+					//failure
+					mui.toast('语音识别失败~请重试!!!')
+				});
+			})
+			 
+		//跳转到搜索页
+		mui('footer').on('tap', "#search", function() {
+			mui.openWindow({
+				url: "search.html",
+				id: "search"
+			})
+		})
+			
+			//跳转到分类页
+			mui('.classifyList').on('tap', 'i', function() {
+				mui.openWindow({
+					url: "classify.html",
+					id: "classify"
+				})
+			})
+			
+			//弹出关于信息
+			mui('.about').on('tap', 'i', function() {
+				mui.alert('此App致力于做您身边最懂垃圾分类的助手！一键垃圾查询即可快速精准定位干垃圾、湿垃圾、有害垃圾、可回收物的准确分类，垃圾分类处理轻松无忧。', '', ['确定'], function(e) {
+					
+				}, 'div')
+			})
+			
+			mui('.refuseBin').on('tap', 'i', function() {
+				mui.alert('对不起，此功能还未开放！' , '', ['确定'], function(e) {
+					
+				})
+			}, 'div')
+			
+			mui('.recycleBin').on('tap', 'i', function() {
+				mui.alert('对不起，此功能还未开放！' , '' , ['确定'], function(e) {
+					
+				})
+			}, 'div')
+			
+		})
+			
+		
+	</script>
+</body>
+</html>

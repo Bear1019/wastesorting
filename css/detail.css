@@ -1,0 +1,31 @@
+.mui-bar{
+	background-color: #f2f3f1;
+}
+.mui-bar .mui-title{
+	text-align: left!important;
+}
+a,a:active{
+	color: #000;
+}
+section h1{
+	padding-left: 0.533333rem;
+	padding-top: 5rem;
+}
+.detail-title{
+	text-align: center;
+	padding: 1.5rem 0;
+}
+.detail-list{
+	padding: 0 0.533333rem;
+}
+.detail-list-title{
+	display: inline-block;
+	padding-left: 0.826666rem;
+}
+.detail-list a{
+	font-size: 0.426666rem;
+	color: #000;
+}
+.mui-table-view{
+	background-color: #f2f3f1!important;
+}
